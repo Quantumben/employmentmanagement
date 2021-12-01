@@ -15,11 +15,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $employee = User::get();
+        $user = User::get();
 
         return response()->json(
             [
-                'employees' => $employee,
+                'employees' => $user,
                 'message' => 'Users fetched',
                 'statusCode' => 200,
                 'status' => true
