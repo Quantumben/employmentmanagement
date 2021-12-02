@@ -162,8 +162,13 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
+ {{-- jquery --}}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ mix('js/app.js') }}"></script>
+   {{-- // <script src="{{ mix('js/app.js') }}"></script> --}}
+
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('js/sb-admin.min.js') }}"></script>
