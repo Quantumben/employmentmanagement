@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class EmployeeController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,17 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::get();
+
+        return response()->json(
+            [
+                'employees' => $user,
+                'message' => 'Users fetched',
+                'statusCode' => 200,
+                'status' => true
+            ],
+            200,
+        );
     }
 
     /**
