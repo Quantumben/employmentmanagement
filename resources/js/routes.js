@@ -1,7 +1,6 @@
-import { component } from "vue/types/umd";
-import EmployeesIndex from './components/employees/Index'
-import EmployeesCreate from './components/employees/Create'
-import EmployeesEdit from './components/employees/Edit'
+import EmployeesIndex from "./components/employees/Index";
+import EmployeesCreate from "./components/employees/Create";
+import EmployeesEdit from "./components/employees/Edit";
 
 export const routes = [
     {
@@ -9,13 +8,11 @@ export const routes = [
         name: "EmployeesIndex",
         component: EmployeesIndex
     },
-
     {
-        path: "/employees/Create",
+        path: "/employees/create",
         name: "EmployeesCreate",
         component: EmployeesCreate
     },
-
     {
         path: "/employees/:id",
         name: "EmployeesEdit",

@@ -29,4 +29,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function(){
 
     Route::get('users', [UserController::class, 'index']);
+    Route::post('/create', [UserController::class, 'create']);
+    Route::put('/update/{id}', [UserController::class, 'update']);
+    Route::get('/delete/{id}', [UserController::class, 'destroy']);
+    Route::get('/search/{id}', [UserController::class, 'search']);
 });
