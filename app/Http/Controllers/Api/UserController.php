@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -33,7 +34,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $fields = $request->validate([
             'username' => 'required|string',
@@ -65,7 +66,6 @@ class UserController extends Controller
 
     public function show(Request $request)
     {
-
     }
 
 
@@ -78,15 +78,18 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $user->update($request->all());
 
+        // always validate request
+        $validated_request = $request->validate([
+            'username' =>  'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => ['required',
+            Rule::unique('users')->ignore($id, 'id')],
+        ]);
 
-        // $user->update([
-        //     'username' => $request['username'],
-        //     'first_name' => $request['first_name'],
-        //     'last_name' => $request['last_name'],
-        //     'email' => $request['email']
-        // ]);
+        // then call the model passing the validated request
+        $user->update($validated_request);
 
         return response()->json(
             [
@@ -107,7 +110,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-       $deleted = User::destroy($id);
+        $deleted = User::destroy($id);
 
         return response()->json(
             [
@@ -118,12 +121,13 @@ class UserController extends Controller
             ],
             200,
         );
-
     }
 
-    public function search($id)
+    public function search($username)
     {
-        $search = User::where('id', 'like', '%' .$id. '%')->get();
+        // Please note , you should not perform a search operation with
+        // the model id
+        $search = User::where('username', 'like', '%' . $username . '%')->get();
 
         return response()->json(
             [
@@ -135,6 +139,4 @@ class UserController extends Controller
             200,
         );
     }
-
-
 }

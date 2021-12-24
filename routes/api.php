@@ -26,11 +26,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  * Example of unauthenticated api routes
  *
  */
-Route::prefix('v1')->group(function(){
+Route::prefix('v1')->group(function () {
 
-    Route::get('users', [UserController::class, 'index']);
-    Route::post('/create', [UserController::class, 'create']);
-    Route::put('/update/{id}', [UserController::class, 'update']);
-    Route::get('/delete/{id}', [UserController::class, 'destroy']);
-    Route::get('/search/{id}', [UserController::class, 'search']);
+    Route::prefix('users')->group(function () {
+        Route::get('', [UserController::class, 'index']);
+        Route::post('', [UserController::class, 'store']);
+        Route::put('{id}', [UserController::class, 'update']);
+        Route::delete('{id}', [UserController::class, 'destroy']);
+
+        Route::get('search/{username}', [UserController::class, 'search']);
+    });
 });
